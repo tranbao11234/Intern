@@ -81,6 +81,12 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #45a049;
 }
+.validation{
+    margin: 0 0 5px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #DE5959;
+}
 
 .container {
     border-radius: 5px;

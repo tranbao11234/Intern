@@ -1,13 +1,62 @@
 import React, { useEffect, useState } from "react";
+import Validator from '../utils/validator';
 
 export default function UserForm({ user, isAdd, onClose, onSave }) {
     const [formState, setFormState] = useState({});
+    const [errors, setErrors] = useState({});
 
-    console.log(formState);
     useEffect(() => {
-        // console.log(user);
-        setFormState({ ...user })
-    },[isAdd, user]);
+        setFormState({ ...user });
+    }, [isAdd, user]);
+
+    const rules = [
+        {
+            field: 'username',
+            method: 'isEmpty',
+            validWhen: false,
+            message: 'The username field is required.',
+        },
+        {
+            field: 'username',
+            method: 'isAlphanumeric',
+            args: ['en-US'],
+            validWhen: true,
+            message: 'The username field must not contain spaces or accented.',
+        },
+        {
+            field: 'username',
+            method: 'isLength',
+            args: [{ max: 20 }],
+            validWhen: true,
+            message: 'The username field is limited to 20 characters.',
+        },
+        {
+            field: 'fullname',
+            method: 'isEmpty',
+            validWhen: false,
+            message: 'The fullname field is required.',
+        },
+        {
+            field: 'fullname',
+            method: 'isLength',
+            args: [{ max: 50 }],
+            validWhen: true,
+            message: 'The fullname field is limited to 50 characters .',
+        },
+        {
+            field: 'email',
+            method: 'isEmpty',
+            validWhen: false,
+            message: 'The email field is required.',
+        },
+        {
+            field: 'email',
+            method: 'isEmail',
+            validWhen: true,
+            message: 'The email must be a valid email address.',
+        },
+    ];
+    var validator = new Validator(rules);
 
     const handleInputChange = (e) => {
         const key = e.target.name;
@@ -18,9 +67,16 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
         setFormState({ ...formState, role: e.target.value });
     };
 
-    const handleSubmit = () => {
-        // console.log(formState);
-        onSave(formState);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const listErrors = validator.validate(formState);
+        setErrors(() => ({ ...validator.validate(formState) }));
+
+        // Không có lỗi sẽ đẩy dữ liệu qua index
+        if (Object.keys(listErrors).length === 0)
+        {
+            onSave(formState);
+        }
     };
     const handleCancel = () => {
         onClose();
@@ -37,6 +93,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
                     <div className="col-75">
                         <input type="text" name='username' placeholder="UserName" value={formState.username} onChange={handleInputChange} />
                     </div>
+                    {errors.username && <div className="validation" style={{ display: 'block' }}>{errors.username}</div>}
                 </div>
                 <div className="row">
                     <div className="col-25">
@@ -45,6 +102,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
                     <div className="col-75">
                         <input type="text" name='fullname' placeholder="Full Name" value={formState.fullname} onChange={handleInputChange} />
                     </div>
+                    {errors.fullname && <div className="validation" style={{ display: 'block' }}>{errors.fullname}</div>}
                 </div>
                 <div className="row">
                     <div className="col-25">
@@ -53,6 +111,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
                     <div className="col-75">
                         <input type="text" name='email' placeholder="abc@123" value={formState.email} onChange={handleInputChange} />
                     </div>
+                    {errors.email && <div className="validation" style={{ display: 'block' }}>{errors.email}</div>}
                 </div>
                 <div className="row">
                     <div className="col-25">
