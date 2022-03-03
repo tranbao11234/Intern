@@ -1,6 +1,55 @@
 import React, { useEffect, useState } from "react";
 import Validator from '../utils/validator';
 
+const rules = [
+    {
+        field: 'username',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'The username field is required.',
+    },
+    {
+        field: 'username',
+        method: 'isAlphanumeric',
+        args: ['en-US'],
+        validWhen: true,
+        message: 'The username field must not contain spaces or accented.',
+    },
+    {
+        field: 'username',
+        method: 'isLength',
+        args: [{ max: 20 }],
+        validWhen: true,
+        message: 'The username field is limited to 20 characters.',
+    },
+    {
+        field: 'fullname',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'The fullname field is required.',
+    },
+    {
+        field: 'fullname',
+        method: 'isLength',
+        args: [{ max: 50 }],
+        validWhen: true,
+        message: 'The fullname field is limited to 50 characters .',
+    },
+    {
+        field: 'email',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'The email field is required.',
+    },
+    {
+        field: 'email',
+        method: 'isEmail',
+        validWhen: true,
+        message: 'The email must be a valid email address.',
+    },
+];
+const validator = new Validator(rules);
+
 export default function UserForm({ user, isAdd, onClose, onSave }) {
     const [formState, setFormState] = useState({});
     const [errors, setErrors] = useState({});
@@ -9,59 +58,26 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
         setFormState({ ...user });
     }, [isAdd, user]);
 
-    const rules = [
-        {
-            field: 'username',
-            method: 'isEmpty',
-            validWhen: false,
-            message: 'The username field is required.',
-        },
-        {
-            field: 'username',
-            method: 'isAlphanumeric',
-            args: ['en-US'],
-            validWhen: true,
-            message: 'The username field must not contain spaces or accented.',
-        },
-        {
-            field: 'username',
-            method: 'isLength',
-            args: [{ max: 20 }],
-            validWhen: true,
-            message: 'The username field is limited to 20 characters.',
-        },
-        {
-            field: 'fullname',
-            method: 'isEmpty',
-            validWhen: false,
-            message: 'The fullname field is required.',
-        },
-        {
-            field: 'fullname',
-            method: 'isLength',
-            args: [{ max: 50 }],
-            validWhen: true,
-            message: 'The fullname field is limited to 50 characters .',
-        },
-        {
-            field: 'email',
-            method: 'isEmpty',
-            validWhen: false,
-            message: 'The email field is required.',
-        },
-        {
-            field: 'email',
-            method: 'isEmail',
-            validWhen: true,
-            message: 'The email must be a valid email address.',
-        },
-    ];
-    var validator = new Validator(rules);
-
     const handleInputChange = (e) => {
         const key = e.target.name;
         const value = e.target.value;
+        
+        let newRules;
+        if (key == 'username')
+            newRules = rules.slice(0,3);
+
+        if(key == 'fullname')
+            newRules = rules.slice(3,5);
+        
+        if(key == 'email')
+            newRules = rules.slice(5);
+        
+        const newValidator = new Validator(newRules);
+        const listErrors = newValidator.validate({[key]: value});
+        setErrors(() => ({ ...listErrors}));
+
         setFormState({ ...formState, [key]: value });
+        
     };
     const handleRoleChange = (e) => {
         setFormState({ ...formState, role: e.target.value });
@@ -70,7 +86,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         const listErrors = validator.validate(formState);
-        setErrors(() => ({ ...validator.validate(formState) }));
+        setErrors(() => ({ ...listErrors}));
 
         // Không có lỗi sẽ đẩy dữ liệu qua index
         if (Object.keys(listErrors).length === 0)
