@@ -61,7 +61,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
     const handleInputChange = (e) => {
         const key = e.target.name;
         const value = e.target.value;
-        
+
         let newRules;
         if (key == 'username')
             newRules = rules.slice(0,3);
@@ -94,6 +94,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
             onSave(formState);
         }
     };
+
     const handleCancel = () => {
         onClose();
     };
