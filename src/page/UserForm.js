@@ -63,13 +63,13 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
         const value = e.target.value;
 
         let newRules;
-        if (key == 'username')
+        if (key === 'username')
             newRules = rules.slice(0,3);
 
-        if(key == 'fullname')
+        if(key === 'fullname')
             newRules = rules.slice(3,5);
         
-        if(key == 'email')
+        if(key === 'email')
             newRules = rules.slice(5);
         
         const newValidator = new Validator(newRules);
@@ -144,7 +144,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
                 </div>
                 <br />
                 <div className='row'>
-                    <button onSubmit={handleSubmit}>Save</button>
+                    <button onSubmit={handleSubmit}>Save</button> {' '}
                     <button onClick={handleCancel}>Cancel</button>
                 </div>
             </form>
