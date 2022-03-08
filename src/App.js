@@ -4,31 +4,33 @@ import NavUser from './page/NavUser';
 import User from "./page/index";
 // import UserForm from "./page/UserForm";
 import Login from "./page/Login";
+import AuthExample from "./example/AuthExample";
 import "./App.css";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={
-          <Link to='login'>Login</Link>
-        }/>
-        <Route path="user" element={<NavUser />} >
-          <Route index element={<User/>}/>
-          <Route path="add" /> 
-          <Route path="edit/:id" />
-        </Route>
-        <Route path="login" element={<Login />} />
-      </Route>
-      <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
-    </Routes>
+    // <Routes>
+    //   <Route path="/" element={<Layout />}>
+    //     <Route index element={
+    //       <Link to='login'>Login</Link>
+    //     }/>
+    //     <Route path="user" element={<NavUser />} >
+    //       <Route index element={<User/>}/>
+    //       <Route path="add" /> 
+    //       <Route path="edit/:id" />
+    //     </Route>
+    //     <Route path="login" element={<Login />} />
+    //   </Route>
+    //   <Route
+    //       path="*"
+    //       element={
+    //         <main style={{ padding: "1rem" }}>
+    //           <p>There's nothing here!</p>
+    //         </main>
+    //       }
+    //     />
+    // </Routes>
+    <AuthExample />
   );
 }
 
