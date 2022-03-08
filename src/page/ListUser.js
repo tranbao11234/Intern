@@ -6,6 +6,7 @@ let listUser = [
     fullname: "Hua Thi To Quyen",
     email: "quyenhua@gmail.com",
     role: "Supper Admin",
+    isLoggedIn: false
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ let listUser = [
     fullname: "Bao Nho",
     email: "Baonho@gmail.com",
     role: "Admin",
+    isLoggedIn: false
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ let listUser = [
     fullname: "Tran Gia Bao",
     email: "Baotran@gmail.com",
     role: "Supporter",
+    isLoggedIn: false
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ let listUser = [
     fullname: "Dang Vu Thanh Tung",
     email: "tungdang@gmail.com",
     role: "Admin",
+    isLoggedIn: false
   },
 ];
 

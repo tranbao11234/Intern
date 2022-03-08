@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { getUserByUnPw } from "./ListUser";
 import "./Login.css";
 
-export default function Login() {
-    let navigate = useNavigate();
+export default function Login({authenticate}) {
+    // let navigate = useNavigate();
     const [formState, setFormState] = useState({});
 
     const handleSubmit = (e) => {
@@ -13,7 +13,8 @@ export default function Login() {
         //     return user.username === formState.username && user.password === formState.password;
         // })
         if (getUserByUnPw(formState.username,formState.password) !== undefined)
-            navigate('/user');
+            // navigate('/user');
+            authenticate(formState);
         else
             alert('The username or password is incorrect');
     };
