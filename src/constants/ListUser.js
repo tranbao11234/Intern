@@ -6,7 +6,6 @@ let listUser = [
     fullname: "Hua Thi To Quyen",
     email: "quyenhua@gmail.com",
     role: "Supper Admin",
-    isLoggedIn: false
   },
   {
     id: 2,
@@ -15,7 +14,6 @@ let listUser = [
     fullname: "Bao Nho",
     email: "Baonho@gmail.com",
     role: "Admin",
-    isLoggedIn: false
   },
   {
     id: 3,
@@ -24,7 +22,6 @@ let listUser = [
     fullname: "Tran Gia Bao",
     email: "Baotran@gmail.com",
     role: "Supporter",
-    isLoggedIn: false
   },
   {
     id: 4,
@@ -33,7 +30,6 @@ let listUser = [
     fullname: "Dang Vu Thanh Tung",
     email: "tungdang@gmail.com",
     role: "Admin",
-    isLoggedIn: false
   },
 ];
 
@@ -45,8 +41,17 @@ export function getUsers() {
  * @param {number} id
  * @returns {User}
  */
-export function getUser(id) {
+export function getUserById(id) {
   return listUser.find((user) => user.id === id);
+}
+
+/**
+ * 
+ * @param {string} username 
+ * @returns 
+ */
+export function getUserByUserName(username) {
+  return listUser.find((user) => user.username === username);
 }
 
 export function getUserByUnPw(username, password) {

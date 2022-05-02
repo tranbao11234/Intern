@@ -1,53 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Validator from '../utils/validator';
+import { rules } from "../../constants/rules";
+import Validator from '../../utils/validator';
 
-const rules = [
-    {
-        field: 'username',
-        method: 'isEmpty',
-        validWhen: false,
-        message: 'The username field is required.',
-    },
-    {
-        field: 'username',
-        method: 'isAlphanumeric',
-        args: ['en-US'],
-        validWhen: true,
-        message: 'The username field must not contain spaces or accented.',
-    },
-    {
-        field: 'username',
-        method: 'isLength',
-        args: [{ max: 20 }],
-        validWhen: true,
-        message: 'The username field is limited to 20 characters.',
-    },
-    {
-        field: 'fullname',
-        method: 'isEmpty',
-        validWhen: false,
-        message: 'The fullname field is required.',
-    },
-    {
-        field: 'fullname',
-        method: 'isLength',
-        args: [{ max: 50 }],
-        validWhen: true,
-        message: 'The fullname field is limited to 50 characters .',
-    },
-    {
-        field: 'email',
-        method: 'isEmpty',
-        validWhen: false,
-        message: 'The email field is required.',
-    },
-    {
-        field: 'email',
-        method: 'isEmail',
-        validWhen: true,
-        message: 'The email must be a valid email address.',
-    },
-];
 const validator = new Validator(rules);
 
 export default function UserForm({ user, isAdd, onClose, onSave }) {
@@ -105,7 +59,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
             <form onSubmit={handleSubmit}>
                 <div className="row">
                     <div className="col-25">
-                        <label for="username">Username</label>
+                        <label htmlFor="username">Username</label>
                     </div>
                     <div className="col-75">
                         <input type="text" name='username' placeholder="UserName" value={formState.username} onChange={handleInputChange} />
@@ -114,7 +68,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
                 </div>
                 <div className="row">
                     <div className="col-25">
-                        <label for="fullname">FullName</label>
+                        <label htmlFor="fullname">FullName</label>
                     </div>
                     <div className="col-75">
                         <input type="text" name='fullname' placeholder="Full Name" value={formState.fullname} onChange={handleInputChange} />
@@ -123,7 +77,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
                 </div>
                 <div className="row">
                     <div className="col-25">
-                        <label for="email">Email</label>
+                        <label htmlFor="email">Email</label>
                     </div>
                     <div className="col-75">
                         <input type="text" name='email' placeholder="abc@123" value={formState.email} onChange={handleInputChange} />
@@ -132,7 +86,7 @@ export default function UserForm({ user, isAdd, onClose, onSave }) {
                 </div>
                 <div className="row">
                     <div className="col-25">
-                        <label for="role">Role</label>
+                        <label htmlFor="role">Role</label>
                     </div>
                     <div className="col-75">
                         <select id="role" name="role" value={formState.role} onChange={handleRoleChange}>

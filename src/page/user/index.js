@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserForm from "./UserForm";
-import { getUsers } from "./ListUser";
+import { getUsers } from "../../constants/ListUser";
 import "./User.css";
 
 const listUser = getUsers();
@@ -56,7 +56,7 @@ function User() {
       <table id="users">
         <thead>
           <tr>
-            <th>UserName</th>
+            <th>Username</th>
             <th>FullName</th>
             <th>email</th>
             <th>role</th>
