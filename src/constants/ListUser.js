@@ -1,4 +1,4 @@
-let listUser = [
+export const listUser = [
   {
     id: 1,
     username: "quyenhua123",
@@ -17,7 +17,7 @@ let listUser = [
   },
   {
     id: 3,
-    username: "baotran",
+    username: "trangiabao",
     password: "12345",
     fullname: "Tran Gia Bao",
     email: "Baotran@gmail.com",
@@ -58,10 +58,3 @@ export function getUserByUnPw(username, password) {
     return listUser.find((user) => user.username === username && password === user.password);
   }
 
-/**
- * @param {number} id
- * @returns {void}
- */
-export function deleteUser(id) {
-  listUser = listUser.filter((user) => user.id !== id);
-}

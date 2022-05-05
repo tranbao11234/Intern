@@ -1,6 +1,7 @@
 import { ADD_USER, DELETE_USER } from "../../constants/user";
+import { initialState } from './../../constants/initialUser';
 
-export let initialUser = {
+let initialUser = {
     username: '',
     fullname: '',
     email:'',
@@ -22,7 +23,7 @@ function userReducer(state = initialUser, action){
 
         case DELETE_USER:
             return {
-                ...initialUser,
+                ...initialState,
             };
     
         default:

@@ -1,16 +1,17 @@
-import React from "react";
-import { Routes, Route, Outlet, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, Outlet, useNavigate } from "react-router-dom";
 import NavUser from "./page/user/NavUser";
 import User from "./page/user";
 import Login from "./page/login";
-import "./App.css";
 import { useSelector } from "react-redux";
 import UserForm from "./page/user/UserForm";
+// import Form from "./page/user/form";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        {/* <Route path="test" element={<Form />}/> */}
         <Route path="user" element={<User />} />
         <Route path="user/create" element={<UserForm />} />
         <Route path="edit/:id" element={<UserForm />} />
@@ -24,24 +25,28 @@ function App() {
           </main>
         }
       />
+      
     </Routes>
   );
 }
 
 function Layout() {
   const user = useSelector((state) => state.user);
-
-  if (user.username === "") {
-    return <Navigate to="/login" />;
-  }
+  const navigate = useNavigate();
+  console.log('ngoai layout', user);
+  
+  useEffect(()=>{
+    if (user.username === "") {
+      console.log('Layout user', user);
+      navigate("/login", {replace: true})
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[user])
 
   return (
-    <div className="container">
-      <h1>Welcome to the Bao Nho Vlog!</h1>
-      <div className="content">
-        <NavUser />
-        <Outlet />
-      </div>
+    <div className="container pt-0 bg-white">
+      <NavUser />
+      <Outlet />
     </div>
   );
 }
